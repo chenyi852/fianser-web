@@ -6,8 +6,8 @@ subtitle: "Natural Agarwood · Handcrafted"
 price: "¥1,680"
 priceRange: "1000-2000"
 images:
-  - "https://cdn.fianser.com/products/bracelet-001-1.jpg"
-  - "https://cdn.fianser.com/products/bracelet-001-2.jpg"
+  - "/images/products/bracelet/vietnam-agarwood-108-beads-1.webp"
+  - "/images/products/bracelet/vietnam-agarwood-108-beads-2.webp"
 tags: ["Agarwood", "108 Beads", "Bracelet", "Vietnam"]
 material: "Natural Vietnam Agarwood"
 size: "8mm"

@@ -6,9 +6,9 @@ subtitle: "Natural Wild Agarwood · Rich in Oil"
 price: "¥2,800"
 priceRange: "2000-5000"
 images:
-  - "https://cdn.fianser.com/products/agarwood-001-1.jpg"
-  - "https://cdn.fianser.com/products/agarwood-001-2.jpg"
-  - "https://cdn.fianser.com/products/agarwood-001-3.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-1.webp"
+  - "/images/products/agarwood/vietnam-agarwood-piece-2.webp"
+  - "/images/products/agarwood/vietnam-agarwood-piece-3.webp"
 tags: ["Natural", "Collectible", "Calming", "Vietnam Nha Trang"]
 material: "Natural Agarwood"
 weight: "Approx. 15g"

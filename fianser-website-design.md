@@ -17,13 +17,15 @@
 2. [技术选型](#二技术选型)
 3. [网站结构规划](#三网站结构规划)
 4. [内容管理方案](#四内容管理方案)
-5. [视觉设计规范](#五视觉设计规范)
-6. [项目目录结构](#六项目目录结构)
-7. [部署实施步骤](#七部署实施步骤)
-8. [域名与 DNS 配置](#八域名与-dns-配置)
-9. [运营人员操作指南](#九运营人员操作指南)
-10. [与 GitHub Pages 对比](#十与-github-pages-对比)
-11. [附录：产品数据模板](#十一附录产品数据模板)
+5. [图片存储方案](#五图片存储方案)
+6. [视觉设计规范](#六视觉设计规范)
+7. [项目目录结构](#七项目目录结构)
+8. [部署实施步骤](#八部署实施步骤)
+9. [域名与 DNS 配置](#九域名与-dns-配置)
+10. [运营人员操作指南](#十运营人员操作指南)
+11. [与 GitHub Pages 对比](#十一与-github-pages-对比)
+12. [附录：产品数据模板](#十二附录产品数据模板)
+13. [后续迭代建议](#十三后续迭代建议)
 
 ---
 
@@ -65,7 +67,7 @@ fianser 为电商品牌，主要运营泳衣、手串、沉香等商品。需要
 | **图标** | Lucide React | ^0.x | 轻量级图标库，风格统一 |
 | **内容管理** | Markdown + YAML Front Matter | - | 运营人员通过 GitHub 在线编辑即可更新，保存即自动部署 |
 | **部署平台** | Cloudflare Pages | - | 全球 300+ 边缘节点，原生支持 Astro，自动 HTTPS， generous 免费额度 |
-| **图片存储** | 腾讯云 COS / Cloudflare Images | - | 产品图量大，建议放对象存储，网站只存链接 |
+| **图片存储** | **GitHub 仓库 `public/images/` 目录** | - | 目前图片数量不多，直接随代码仓库一起管理，零额外配置，推代码即部署 |
 | **表单处理** | Cloudflare Pages Functions | - | 边缘轻量 API，免费处理联系表单，无需额外服务器 |
 
 ### 2.2 为什么不选其他方案
@@ -179,9 +181,9 @@ subtitle: "天然野生沉香 · 油脂饱满"
 price: "¥2,800"
 priceRange: "2000-5000"
 images:
-  - "https://cdn.fianser.com/products/agarwood-1.jpg"
-  - "https://cdn.fianser.com/products/agarwood-2.jpg"
-  - "https://cdn.fianser.com/products/agarwood-3.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-1.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-2.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-3.jpg"
 tags: ["天然", "收藏级", "安神", "越南芽庄"]
 material: "天然沉香"
 weight: "约 15g"
@@ -225,18 +227,133 @@ sortOrder: 1
 - 需要额外配置 OAuth 认证
 
 > **建议**：初期使用 GitHub 在线编辑即可，运营成本低。待内容更新频率提高后再评估是否引入 Decap CMS。
+>
+> **图片更新说明**：如需新增或替换产品图片，将压缩后的图片上传至 `public/images/products/[品类]/` 目录，并同步修改对应 `.md` 文件中的 `images` 字段。详见 [五、图片存储方案](#五图片存储方案)。
 
 ---
 
-## 五、视觉设计规范
 
-### 5.1 设计理念
+---
+
+## 五、图片存储方案
+
+### 5.1 方案概述
+
+鉴于 fianser 目前产品图片数量不多（几十 SKU，每个产品 3-5 张图），**图片直接存放在 GitHub 仓库的 `public/images/` 目录下**，随代码一起构建和部署。
+
+### 5.2 存放位置
+
+```
+public/
+├── images/
+│   ├── brand/                   # 品牌相关图片（首页 Hero、品牌故事等）
+│   │   ├── hero-bg.jpg
+│   │   └── about-story.jpg
+│   └── products/                # 产品图片
+│       ├── swimwear/            # 泳衣产品图
+│       │   ├── classic-black-bikini-1.jpg
+│       │   ├── classic-black-bikini-2.jpg
+│       │   └── floral-one-piece-1.jpg
+│       ├── bracelet/            # 手串产品图
+│       │   ├── sandalwood-18cm-1.jpg
+│       │   └── agarwood-108-beads-1.jpg
+│       └── agarwood/            # 沉香产品图
+│           ├── vietnam-agarwood-piece-1.jpg
+│           ├── vietnam-agarwood-piece-2.jpg
+│           └── hainan-agarwood-raw-1.jpg
+```
+
+Astro 构建时，`public/` 目录下的所有文件会**原样复制到 `dist/`**，部署后通过站点根路径直接访问：
+
+```
+https://fianser.com/images/products/agarwood/vietnam-agarwood-piece-1.jpg
+```
+
+### 5.3 产品 YAML 中的引用方式
+
+```yaml
+---
+title: "越南芽庄沉香摆件"
+images:
+  - "/images/products/agarwood/vietnam-agarwood-piece-1.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-2.jpg"
+  - "/images/products/agarwood/vietnam-agarwood-piece-3.jpg"
+---
+```
+
+### 5.4 优缺点分析
+
+| 方面 | 说明 |
+|------|------|
+| ✅ **简单零配置** | 推代码时图片一起部署，无需额外服务或 API Token |
+| ✅ **完全免费** | GitHub + Cloudflare Pages 均不收取图片存储和流量费用 |
+| ✅ **版本控制** | 图片与产品文案、代码统一管理，回滚时同步还原 |
+| ✅ **全球 CDN** | Cloudflare Pages 自动将 `dist/` 内所有资源分发到全球边缘节点 |
+| ⚠️ **仓库体积增长** | Git 不适合管理二进制文件，频繁修改图片会缓慢增加仓库体积 |
+| ⚠️ **无自动优化** | 不会自动转 WebP/AVIF，需手动控制图片大小和格式 |
+| ⚠️ **无动态尺寸** | 需要自己准备不同尺寸，或通过 CSS 控制显示大小 |
+
+### 5.5 图片优化要求（必须执行）
+
+由于缺少 Cloudflare Images 的自动优化，上传前需手动处理：
+
+1. **压缩体积**：单张控制在 **500KB 以内**，推荐使用：
+   - [Squoosh](https://squoosh.app/)（在线，支持 WebP/AVIF）
+   - [TinyPNG](https://tinypng.com/)（在线，PNG/JPG）
+   - ImageOptim（Mac 桌面端）
+
+2. **统一尺寸**：
+   - 列表缩略图：800×600 px
+   - 详情页大图：1600×1200 px
+   - 首页 Hero 图：1920×1080 px
+
+3. **优先使用 WebP 格式**：现代浏览器支持率 > 95%，体积比 JPG 小 30-50%
+
+4. **懒加载**：所有非首屏图片添加 `loading="lazy"`
+
+```astro
+<img 
+  src="/images/products/xxx.webp" 
+  alt="..." 
+  loading="lazy" 
+  decoding="async"
+  width="800" 
+  height="600"
+/>
+```
+
+### 5.6 运营人员上传图片流程
+
+1. 将处理好的图片文件（已压缩、已命名）发送给开发人员，或：
+2. 登录 GitHub → 进入 `fianser-web` 仓库
+3. 导航至 `public/images/products/[品类]/`
+4. 点击 **"Add file"** → **"Upload files"**
+5. 拖拽或选择图片文件上传
+6. 填写提交信息（如 `上传：沉香摆件产品图`）
+7. 点击 **"Commit changes"**
+8. 同步更新对应产品的 `.md` 文件中的 `images` 字段
+
+### 5.7 后续迁移路径（平滑升级）
+
+当图片数量增长至几百张以上，或需要更极致的性能时，可**无缝迁移至 Cloudflare Images**：
+
+1. 批量上传 `public/images/products/` 下的图片到 Cloudflare Images（通过 API 脚本）
+2. 获得图片 ID 列表
+3. 批量替换 YAML 中的路径：`/images/products/xxx.jpg` → `https://imagedelivery.net/<HASH>/<ID>/<VARIANT>`
+4. 删除 `public/images/products/` 目录，减小仓库体积
+
+> **迁移成本很低**：YAML 结构已预留，仅需改动图片引用方式。
+
+
+## 六、视觉设计规范
+
+### 6.1 设计理念
 
 - **高端简约**：大量留白，让产品成为视觉焦点
 - **克制优雅**：减少装饰元素，依靠排版和间距建立层次
 - **质感优先**：高分辨率产品图，微妙的阴影和过渡动画
 
-### 5.2 配色方案
+### 6.2 配色方案
 
 | 角色 | 色值 | 用途 |
 |------|------|------|
@@ -250,7 +367,7 @@ sortOrder: 1
 | **边框** | `#E5E5E5` | 分割线、卡片边框 |
 | **深色区块** | `#1A1A1A` | 页脚、部分对比区块 |
 
-### 5.3 字体规范
+### 6.3 字体规范
 
 | 用途 | 字体 | 备选 |
 |------|------|------|
@@ -258,14 +375,14 @@ sortOrder: 1
 | **中文正文** | Noto Sans SC | PingFang SC, Microsoft YaHei |
 | **英文/数字** | Inter | system-ui |
 
-### 5.4 间距系统
+### 6.4 间距系统
 
 基于 Tailwind 默认间距，以 `4px` 为基准：
 - 小间距：`4px, 8px, 12px, 16px`
 - 中间距：`24px, 32px, 48px`
 - 大间距：`64px, 96px, 128px`
 
-### 5.5 响应式断点
+### 6.5 响应式断点
 
 | 断点 | 宽度 | 说明 |
 |------|------|------|
@@ -275,7 +392,7 @@ sortOrder: 1
 | `xl` | 1280px | 桌面 |
 | `2xl` | 1536px | 大桌面 |
 
-### 5.6 交互动效
+### 6.6 交互动效
 
 - **页面加载**：内容淡入， stagger 延迟 100ms
 - **图片悬停**：轻微放大 `scale(1.03)`，过渡 300ms ease-out
@@ -285,15 +402,29 @@ sortOrder: 1
 
 ---
 
-## 六、项目目录结构
+## 七、项目目录结构
 
 ```
 fianser-web/
 ├── public/                          # 静态资源（不经过构建）
 │   ├── favicon.svg
 │   ├── robots.txt
-│   └── images/
-│       └── logo.svg
+│   └── images/                      # 产品图片（直接放 GitHub，随代码一起部署）
+│       ├── brand/                   # 品牌相关图片
+│       │   ├── hero-bg.jpg
+│       │   └── about-story.jpg
+│       └── products/                # 产品图片
+│           ├── swimwear/            # 泳衣产品图
+│           │   ├── classic-black-bikini-1.jpg
+│           │   ├── classic-black-bikini-2.jpg
+│           │   └── floral-one-piece-1.jpg
+│           ├── bracelet/            # 手串产品图
+│           │   ├── sandalwood-18cm-1.jpg
+│           │   └── agarwood-108-beads-1.jpg
+│           └── agarwood/            # 沉香产品图
+│               ├── vietnam-agarwood-piece-1.jpg
+│               ├── vietnam-agarwood-piece-2.jpg
+│               └── hainan-agarwood-raw-1.jpg
 │
 ├── src/
 │   ├── assets/                      # 构建时处理的资源
@@ -362,9 +493,9 @@ fianser-web/
 
 ---
 
-## 七、部署实施步骤
+## 八、部署实施步骤
 
-### 7.1 环境准备
+### 10.1 环境准备
 
 - Node.js >= 18
 - npm >= 9
@@ -372,7 +503,7 @@ fianser-web/
 - GitHub 账号
 - Cloudflare 账号
 
-### 7.2 本地开发
+### 10.2 本地开发
 
 ```bash
 # 1. 克隆仓库
@@ -392,7 +523,7 @@ npm run build
 npm run preview
 ```
 
-### 7.3 Astro 配置（astro.config.mjs）
+### 10.3 Astro 配置（astro.config.mjs）
 
 ```javascript
 import { defineConfig } from 'astro/config';
@@ -417,7 +548,7 @@ export default defineConfig({
 });
 ```
 
-### 7.4 Cloudflare Pages 部署配置
+### 10.4 Cloudflare Pages 部署配置
 
 #### 方式一：Git 集成（推荐）
 
@@ -447,7 +578,7 @@ wrangler login
 wrangler pages deploy dist --project-name=fianser-web
 ```
 
-### 7.5 环境变量配置
+### 8.5 环境变量配置
 
 在 Cloudflare Pages 项目设置中配置：
 
@@ -458,16 +589,16 @@ wrangler pages deploy dist --project-name=fianser-web
 
 ---
 
-## 八、域名与 DNS 配置
+## 九、域名与 DNS 配置
 
-### 8.1 绑定自定义域名
+### 10.1 绑定自定义域名
 
 1. 在 Cloudflare Pages 项目 → **Custom domains**
 2. 点击 **"Set up a custom domain"**
 3. 输入 `fianser.com`，点击 **"Continue"**
 4. 输入 `www.fianser.com`，点击 **"Continue"**
 
-### 8.2 腾讯云 DNS 配置
+### 10.2 腾讯云 DNS 配置
 
 登录 [腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，为域名添加以下记录：
 
@@ -481,11 +612,11 @@ wrangler pages deploy dist --project-name=fianser-web
 > - 方案 B：使用 A 记录指向 Cloudflare Pages 的 IP（具体 IP 在绑定过程中 Cloudflare 会提示）
 > - 方案 C：使用腾讯云 CDN 回源到 `fianser-web.pages.dev`
 
-### 8.3 SSL/HTTPS
+### 10.3 SSL/HTTPS
 
 Cloudflare Pages 自动为自定义域名签发并续期 **SSL 证书**，无需手动操作。
 
-### 8.4 备案说明
+### 10.4 备案说明
 
 - Cloudflare Pages 服务器位于**海外**
 - 域名 `fianser.com` 已在腾讯云注册
@@ -498,9 +629,9 @@ Cloudflare Pages 自动为自定义域名签发并续期 **SSL 证书**，无需
 
 ---
 
-## 九、运营人员操作指南
+## 十、运营人员操作指南
 
-### 9.1 添加新产品
+### 10.1 添加新产品
 
 1. 打开浏览器，访问 `https://github.com/fianser/fianser-web`
 2. 点击 `src/content/products/`，进入对应品类文件夹
@@ -515,8 +646,8 @@ slug: "产品-url-标识"
 category: "swimwear|bracelet|agarwood"
 price: "¥价格"
 images:
-  - "图片URL1"
-  - "图片URL2"
+  - "/images/products/[品类]/[图片文件名1].jpg"
+  - "/images/products/[品类]/[图片文件名2].jpg"
 tags: ["标签1", "标签2"]
 buyLink: "购买链接"
 ---
@@ -530,7 +661,7 @@ buyLink: "购买链接"
 7. 点击 **"Commit new file"**
 8. 等待 1-3 分钟，访问网站查看效果
 
-### 9.2 修改产品信息
+### 10.2 修改产品信息
 
 1. 进入 `src/content/products/[品类]/` 文件夹
 2. 点击要修改的产品文件
@@ -539,13 +670,13 @@ buyLink: "购买链接"
 5. 填写提交信息（如 `更新：越南沉香价格`）
 6. 点击 **"Commit changes"**
 
-### 9.3 删除产品
+### 10.3 删除产品
 
 1. 进入产品文件页面
 2. 点击右上角 **垃圾桶图标**（Delete）
 3. 确认删除并提交
 
-### 9.4 查看部署状态
+### 10.4 查看部署状态
 
 1. 访问 Cloudflare Pages 项目页面
 2. 查看 **Deployments** 标签
@@ -554,7 +685,7 @@ buyLink: "购买链接"
 
 ---
 
-## 十、与 GitHub Pages 对比
+## 十一、与 GitHub Pages 对比
 
 | 对比维度 | GitHub Pages | Cloudflare Pages | 结论 |
 |----------|-------------|------------------|------|
@@ -572,9 +703,9 @@ buyLink: "购买链接"
 
 ---
 
-## 十一、附录：产品数据模板
+## 十二、附录：产品数据模板
 
-### 11.1 泳衣产品模板
+### 12.1 泳衣产品模板
 
 ```yaml
 ---
@@ -585,9 +716,9 @@ subtitle: "极简设计 · 高弹面料"
 price: "¥399"
 priceRange: "300-500"
 images:
-  - "https://cdn.fianser.com/products/swimwear-001-1.jpg"
-  - "https://cdn.fianser.com/products/swimwear-001-2.jpg"
-  - "https://cdn.fianser.com/products/swimwear-001-3.jpg"
+  - "/images/products/swimwear/classic-black-bikini-1.jpg"
+  - "/images/products/swimwear/classic-black-bikini-2.jpg"
+  - "/images/products/swimwear/classic-black-bikini-3.jpg"
 tags: ["比基尼", "黑色", "高弹", "速干"]
 material: "82% 锦纶 + 18% 氨纶"
 size: "S / M / L"
@@ -614,7 +745,7 @@ sortOrder: 1
 - 阴凉处晾干
 ```
 
-### 11.2 手串产品模板
+### 12.2 手串产品模板
 
 ```yaml
 ---
@@ -625,8 +756,8 @@ subtitle: "天然沉香 · 手工打磨"
 price: "¥1,680"
 priceRange: "1000-2000"
 images:
-  - "https://cdn.fianser.com/products/bracelet-001-1.jpg"
-  - "https://cdn.fianser.com/products/bracelet-001-2.jpg"
+  - "/images/products/bracelet/sandalwood-18cm-1.jpg"
+  - "/images/products/bracelet/sandalwood-18cm-2.jpg"
 tags: ["沉香", "108颗", "佛珠", "越南"]
 material: "天然越南沉香"
 beadSize: "8mm"
@@ -654,7 +785,7 @@ sortOrder: 1
 - 定期以干净棉布擦拭
 ```
 
-### 11.3 沉香产品模板
+### 12.3 沉香产品模板
 
 ```yaml
 ---
@@ -665,9 +796,9 @@ subtitle: "野生老料 · 油脂饱满"
 price: "¥5,800"
 priceRange: "5000-10000"
 images:
-  - "https://cdn.fianser.com/products/agarwood-001-1.jpg"
-  - "https://cdn.fianser.com/products/agarwood-001-2.jpg"
-  - "https://cdn.fianser.com/products/agarwood-001-3.jpg"
+  - "/images/products/agarwood/hainan-agarwood-raw-1.jpg"
+  - "/images/products/agarwood/hainan-agarwood-raw-2.jpg"
+  - "/images/products/agarwood/hainan-agarwood-raw-3.jpg"
 tags: ["沉香", "海南", "原材", "收藏级"]
 material: "天然海南沉香"
 weight: "约 30g"
@@ -695,7 +826,7 @@ sortOrder: 3
 
 ---
 
-## 十二、后续迭代建议
+## 十三、后续迭代建议
 
 | 阶段 | 功能 | 优先级 |
 |------|------|--------|
@@ -710,6 +841,6 @@ sortOrder: 3
 
 ---
 
-*文档版本：v1.0*  
+*文档版本：v1.1*  
 *创建日期：2026-05-22*  
 *交付对象：CodeArts*

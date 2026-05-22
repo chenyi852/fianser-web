@@ -6,9 +6,9 @@ subtitle: "Minimalist Design · High-Stretch Fabric"
 price: "¥399"
 priceRange: "300-500"
 images:
-  - "https://cdn.fianser.com/products/swimwear-001-1.jpg"
-  - "https://cdn.fianser.com/products/swimwear-001-2.jpg"
-  - "https://cdn.fianser.com/products/swimwear-001-3.jpg"
+  - "/images/products/swimwear/classic-black-bikini-1.webp"
+  - "/images/products/swimwear/classic-black-bikini-2.webp"
+  - "/images/products/swimwear/classic-black-bikini-3.webp"
 tags: ["Bikini", "Black", "High-Stretch", "Quick-Dry"]
 material: "82% Nylon + 18% Spandex"
 size: "S / M / L"

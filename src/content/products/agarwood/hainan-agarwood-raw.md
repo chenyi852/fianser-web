@@ -6,8 +6,8 @@ subtitle: "Wild Old Material · Rich in Oil"
 price: "¥5,800"
 priceRange: "5000-10000"
 images:
-  - "https://cdn.fianser.com/products/agarwood-002-1.jpg"
-  - "https://cdn.fianser.com/products/agarwood-002-2.jpg"
+  - "/images/products/agarwood/hainan-agarwood-raw-1.webp"
+  - "/images/products/agarwood/hainan-agarwood-raw-2.webp"
 tags: ["Agarwood", "Hainan", "Raw Material", "Collectible"]
 material: "Natural Hainan Agarwood"
 weight: "Approx. 30g"
