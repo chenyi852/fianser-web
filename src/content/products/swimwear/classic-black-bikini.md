@@ -1,34 +1,34 @@
 ---
-title: "经典黑色比基尼"
+title: "Classic Black Bikini"
 slug: "classic-black-bikini"
 category: "swimwear"
-subtitle: "极简设计 · 高弹面料"
+subtitle: "Minimalist Design · High-Stretch Fabric"
 price: "¥399"
 priceRange: "300-500"
 images:
   - "https://cdn.fianser.com/products/swimwear-001-1.jpg"
   - "https://cdn.fianser.com/products/swimwear-001-2.jpg"
   - "https://cdn.fianser.com/products/swimwear-001-3.jpg"
-tags: ["比基尼", "黑色", "高弹", "速干"]
-material: "82% 锦纶 + 18% 氨纶"
+tags: ["Bikini", "Black", "High-Stretch", "Quick-Dry"]
+material: "82% Nylon + 18% Spandex"
 size: "S / M / L"
 buyLink: "https://fianser.tmall.com/item/swimwear-001"
 featured: true
 sortOrder: 1
 ---
 
-## 产品描述
+## Product Description
 
-经典黑色比基尼，采用高弹锦纶面料，贴合身形不紧绷。速干科技，出水即干，舒适透气。
+Classic black bikini made from high-stretch nylon fabric that fits your body without tightness. Quick-dry technology keeps you comfortable and breathable.
 
-## 设计亮点
+## Design Highlights
 
-- 极简三角杯设计，修饰胸型
-- 可调节肩带，适配不同身形
-- 高腰泳裤，拉长腿部线条
+- Minimalist triangle cup design, enhances natural shape
+- Adjustable straps for different body types
+- High-waisted bottom elongates leg line
 
-## 洗涤说明
+## Care Instructions
 
-- 手洗，水温不超过 30°C
-- 不可漂白
-- 阴凉处晾干
+- Hand wash, water temperature not exceeding 30°C
+- Do not bleach
+- Dry in shade

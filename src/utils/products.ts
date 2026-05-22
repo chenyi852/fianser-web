@@ -24,9 +24,9 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
 
 export function getCategoryLabel(category: string): string {
   const labels: Record<string, string> = {
-    swimwear: '泳衣',
-    bracelet: '手串',
-    agarwood: '沉香',
+    swimwear: 'Swimwear',
+    bracelet: 'Bracelet',
+    agarwood: 'Agarwood',
   };
   return labels[category] || category;
 }
