@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/layout/Container.astro';
+import Button from '../components/ui/Button.astro';
+import ProductCard from '../components/product/ProductCard.astro';
+import { getFeaturedProducts, getCategoryLabel } from '../utils/products';
+
+const featuredProducts = await getFeaturedProducts();
+
+const categories = [
+  { 
+    key: 'swimwear', 
+    title: '泳衣', 
+    description: '轻盈速干，自由舒展',
+    image: 'https://cdn.fianser.com/category-swimwear.jpg'
+  },
+  { 
+    key: 'bracelet', 
+    title: '手串', 
+    description: '匠心打磨，温润如玉',
+    image: 'https://cdn.fianser.com/category-bracelet.jpg'
+  },
+  { 
+    key: 'agarwood', 
+    title: '沉香', 
+    description: '天然醇厚，安神养心',
+    image: 'https://cdn.fianser.com/category-agarwood.jpg'
+  },
+];
+---
+
+<BaseLayout title="fianser - 高端生活方式品牌">
+  <Header slot="header" />
+  
+  <section class="relative min-h-screen flex items-center justify-center bg-brand-text">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-text/50 to-brand-text"></div>
+    <img 
+      src="https://cdn.fianser.com/hero.jpg" 
+      alt="fianser 品牌形象"
+      class="absolute inset-0 w-full h-full object-cover opacity-40"
+    />
+    <Container class="relative z-10 text-center text-white">
+      <h1 class="font-serif-cn text-4xl md:text-6xl lg:text-7xl font-medium mb-6 opacity-0 animate-fade-in">
+        fianser
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto opacity-0 animate-fade-in animation-delay-100">
+        品质生活，从选择开始
+      </p>
+      <p class="text-sm md:text-base text-gray-400 mb-12 max-w-xl mx-auto opacity-0 animate-fade-in animation-delay-200">
+        泳衣 · 手串 · 沉香
+      </p>
+      <div class="opacity-0 animate-fade-in animation-delay-300">
+        <Button href="/collection/swimwear" size="lg">
+          探索系列
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-24 md:py-32">
+    <Container>
+      <div class="text-center mb-16">
+        <h2 class="font-serif-cn text-3xl md:text-4xl font-medium text-brand-text mb-4">
+          产品系列
+        </h2>
+        <p class="text-brand-text-secondary max-w-2xl mx-auto">
+          精选三大品类，每一件都承载着对品质的追求
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {categories.map((cat) => (
+          <a 
+            href={`/collection/${cat.key}`}
+            class="group relative overflow-hidden rounded-sm aspect-[4/5]"
+          >
+            <img 
+              src={cat.image} 
+              alt={cat.title}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-text via-brand-text/50 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <h3 class="font-serif-cn text-2xl font-medium mb-2">{cat.title}</h3>
+              <p class="text-sm text-gray-300">{cat.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  {featuredProducts.length > 0 && (
+    <section class="py-24 md:py-32 bg-brand-bg">
+      <Container>
+        <div class="text-center mb-16">
+          <h2 class="font-serif-cn text-3xl md:text-4xl font-medium text-brand-text mb-4">
+            精选单品
+          </h2>
+          <p class="text-brand-text-secondary max-w-2xl mx-auto">
+            每一件都经过精心挑选，诠释品质生活
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredProducts.slice(0, 6).map((product) => (
+            <ProductCard
+              title={product.data.title}
+              slug={product.data.slug}
+              category={product.data.category}
+              image={product.data.images[0]}
+              price={product.data.price}
+              tags={product.data.tags}
+              featured={product.data.featured}
+            />
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <Button href="/collection/swimwear" variant="outline">
+            查看全部产品
+          </Button>
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <section class="py-24 md:py-32 bg-brand-text text-white">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="font-serif-cn text-3xl md:text-4xl font-medium mb-6">
+          关于 fianser
+        </h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-8">
+          fianser 成立于对品质生活的追求，我们相信生活中的每一件物品都承载着情感与价值。
+          从轻盈速干的泳衣，到温润如玉的手串，再到安神养心的沉香，
+          我们用心甄选每一件产品，只为让您的日常更加精致。
+        </p>
+        <Button href="/about" variant="outline">
+          了解更多
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+  
+  .animation-delay-100 {
+    animation-delay: 0.1s;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+</style>

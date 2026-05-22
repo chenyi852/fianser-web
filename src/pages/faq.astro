@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/layout/Container.astro';
+
+const faqs = [
+  {
+    question: '如何购买 fianser 产品？',
+    answer: '您可以通过我们的天猫旗舰店购买产品。官网主要展示产品信息，购买请前往天猫旗舰店。',
+  },
+  {
+    question: '产品发货时间？',
+    answer: '一般情况下，付款后48小时内发货。具体发货时间以天猫店铺公告为准。',
+  },
+  {
+    question: '支持退换货吗？',
+    answer: '支持7天无理由退换货（商品需保持原样，未使用、未拆封）。具体政策请参考天猫店铺退换货规则。',
+  },
+  {
+    question: '沉香产品如何保养？',
+    answer: '避免接触水、汗、化学品；存放于阴凉干燥处；定期检查保存状态。建议使用密封袋或密封盒保存。',
+  },
+  {
+    question: '手串可以沾水吗？',
+    answer: '沉香、木质手串不建议沾水，可能导致开裂或变色。洗手、洗澡时建议取下，避免接触化学品。',
+  },
+  {
+    question: '泳衣如何洗涤？',
+    answer: '建议手洗，水温不超过30°C；使用中性洗涤剂；不可漂白；阴凉处晾干，避免阳光直射。',
+  },
+];
+---
+
+<BaseLayout title="常见问题 - fianser">
+  <Header slot="header" />
+  
+  <section class="py-16 md:py-24">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <h1 class="font-serif-cn text-4xl md:text-5xl font-medium text-brand-text mb-8 text-center">
+          常见问题
+        </h1>
+        
+        <div class="mt-12 space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group border border-brand-border rounded-sm overflow-hidden">
+              <summary class="flex items-center justify-between p-5 cursor-pointer bg-white hover:bg-brand-bg transition-colors">
+                <span class="font-medium text-brand-text pr-4">
+                  {faq.question}
+                </span>
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  class="text-brand-text-secondary transition-transform group-open:rotate-180"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="p-5 pt-0 bg-white border-t border-brand-border">
+                <p class="text-brand-text-secondary leading-relaxed">
+                  {faq.answer}
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+        
+        <div class="mt-12 text-center">
+          <p class="text-brand-text-secondary mb-4">
+            没有找到您需要的答案？
+          </p>
+          <a 
+            href="/contact" 
+            class="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover transition-colors"
+          >
+            联系我们
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Container from '../../components/layout/Container.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import { getAllProducts, getCategoryLabel } from '../../utils/products';
+
+export async function getStaticPaths() {
+  const products = await getAllProducts();
+  return products.map((product) => ({
+    params: { slug: product.data.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const { data } = product;
+
+const categoryLabel = getCategoryLabel(data.category);
+---
+
+<BaseLayout title={`${data.title} - fianser`}>
+  <Header slot="header" />
+  
+  <section class="py-8 md:py-12">
+    <Container>
+      <nav class="flex items-center gap-2 text-sm text-brand-text-secondary mb-8">
+        <a href="/" class="hover:text-brand-text transition-colors">首页</a>
+        <span>/</span>
+        <a href={`/collection/${data.category}`} class="hover:text-brand-text transition-colors">
+          {categoryLabel}
+        </a>
+        <span>/</span>
+        <span class="text-brand-text">{data.title}</span>
+      </nav>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div class="space-y-4">
+          <div class="aspect-square rounded-sm overflow-hidden bg-brand-bg border border-brand-border">
+            <img 
+              src={data.images[0]} 
+              alt={data.title}
+              class="w-full h-full object-cover"
+              id="main-image"
+            />
+          </div>
+          
+          {data.images.length > 1 && (
+            <div class="flex gap-2 overflow-x-auto pb-2">
+              {data.images.map((image, index) => (
+                <button 
+                  class="flex-shrink-0 w-20 h-20 rounded-sm overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors"
+                  data-image={image}
+                  onclick="document.getElementById('main-image').src = this.dataset.image"
+                >
+                  <img 
+                    src={image} 
+                    alt={`${data.title} - ${index + 1}`}
+                    class="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        <div>
+          {data.tags && data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4">
+              {data.tags.map((tag) => (
+                <Badge>{tag}</Badge>
+              ))}
+            </div>
+          )}
+          
+          <h1 class="font-serif-cn text-3xl md:text-4xl font-medium text-brand-text mb-2">
+            {data.title}
+          </h1>
+          
+          {data.subtitle && (
+            <p class="text-brand-text-secondary mb-4">
+              {data.subtitle}
+            </p>
+          )}
+          
+          <p class="text-2xl font-medium text-brand-accent mb-8">
+            {data.price}
+          </p>
+          
+          <div class="border-t border-brand-border pt-6 mb-8">
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              {data.material && (
+                <div>
+                  <span class="text-brand-text-weak">材质</span>
+                  <p class="text-brand-text mt-1">{data.material}</p>
+                </div>
+              )}
+              {data.size && (
+                <div>
+                  <span class="text-brand-text-weak">尺寸</span>
+                  <p class="text-brand-text mt-1">{data.size}</p>
+                </div>
+              )}
+              {data.weight && (
+                <div>
+                  <span class="text-brand-text-weak">重量</span>
+                  <p class="text-brand-text mt-1">{data.weight}</p>
+                </div>
+              )}
+              {data.origin && (
+                <div>
+                  <span class="text-brand-text-weak">产地</span>
+                  <p class="text-brand-text mt-1">{data.origin}</p>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {data.buyLink && (
+            <div class="mb-8">
+              <Button href={data.buyLink} size="lg" class="w-full">
+                前往天猫旗舰店购买
+              </Button>
+            </div>
+          )}
+          
+          <div class="prose prose-sm max-w-none">
+            <div class="text-brand-text-secondary leading-relaxed" set:html={product.body}></div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

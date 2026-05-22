@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import Badge from '../ui/Badge.astro';
+
+interface Props {
+  title: string;
+  slug: string;
+  category: string;
+  image: string;
+  price: string;
+  tags?: string[];
+  featured?: boolean;
+}
+
+const { title, slug, category, image, price, tags = [], featured = false } = Astro.props;
+---
+
+<article class="group relative bg-brand-card rounded-sm border border-brand-border overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-accent/30">
+  <a href={`/product/${slug}`} class="block">
+    <div class="relative aspect-square overflow-hidden bg-brand-bg">
+      <img 
+        src={image} 
+        alt={title}
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+      {featured && (
+        <div class="absolute top-3 left-3">
+          <Badge variant="accent">精选</Badge>
+        </div>
+      )}
+      <div class="absolute inset-0 bg-brand-text/0 group-hover:bg-brand-text/5 transition-colors duration-300"></div>
+    </div>
+    
+    <div class="p-4">
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-1 mb-2">
+          {tags.slice(0, 2).map((tag) => (
+            <Badge>{tag}</Badge>
+          ))}
+        </div>
+      )}
+      
+      <h3 class="font-serif-cn text-base font-medium text-brand-text mb-1 group-hover:text-brand-accent transition-colors">
+        {title}
+      </h3>
+      
+      <p class="text-sm text-brand-accent font-medium">
+        {price}
+      </p>
+    </div>
+  </a>
+</article>

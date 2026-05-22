@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/layout/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="联系我们 - fianser">
+  <Header slot="header" />
+  
+  <section class="py-16 md:py-24">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <h1 class="font-serif-cn text-4xl md:text-5xl font-medium text-brand-text mb-8 text-center">
+          联系我们
+        </h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+          <div>
+            <h2 class="font-serif-cn text-2xl font-medium text-brand-text mb-6">
+              留言咨询
+            </h2>
+            
+            <form class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-brand-text mb-2">
+                  姓名
+                </label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name"
+                  class="w-full px-4 py-3 border border-brand-border rounded-sm bg-white focus:outline-none focus:border-brand-accent transition-colors"
+                  placeholder="您的姓名"
+                />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-brand-text mb-2">
+                  邮箱
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email"
+                  class="w-full px-4 py-3 border border-brand-border rounded-sm bg-white focus:outline-none focus:border-brand-accent transition-colors"
+                  placeholder="your@email.com"
+                />
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-brand-text mb-2">
+                  留言
+                </label>
+                <textarea 
+                  id="message" 
+                  name="message"
+                  rows="5"
+                  class="w-full px-4 py-3 border border-brand-border rounded-sm bg-white focus:outline-none focus:border-brand-accent transition-colors resize-none"
+                  placeholder="请输入您的留言..."
+                ></textarea>
+              </div>
+              
+              <Button variant="primary" class="w-full">
+                提交留言
+              </Button>
+            </form>
+          </div>
+          
+          <div>
+            <h2 class="font-serif-cn text-2xl font-medium text-brand-text mb-6">
+              联系方式
+            </h2>
+            
+            <div class="space-y-6 text-brand-text-secondary">
+              <div>
+                <h3 class="text-sm font-medium text-brand-text mb-2">邮箱</h3>
+                <p>contact@fianser.com</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm font-medium text-brand-text mb-2">客服电话</h3>
+                <p>400-xxx-xxxx</p>
+                <p class="text-xs text-brand-text-weak mt-1">工作日 9:00 - 18:00</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm font-medium text-brand-text mb-2">社交媒体</h3>
+                <div class="flex gap-4 mt-3">
+                  <a href="#" class="text-brand-text-secondary hover:text-brand-accent transition-colors">
+                    微博
+                  </a>
+                  <a href="#" class="text-brand-text-secondary hover:text-brand-accent transition-colors">
+                    微信公众号
+                  </a>
+                  <a href="#" class="text-brand-text-secondary hover:text-brand-accent transition-colors">
+                    小红书
+                  </a>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-sm font-medium text-brand-text mb-2">购买渠道</h3>
+                <a 
+                  href="https://fianser.tmall.com" 
+                  class="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover transition-colors"
+                >
+                  天猫旗舰店
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

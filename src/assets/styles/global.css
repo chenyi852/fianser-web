@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-bg text-brand-text antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif-cn font-medium;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}

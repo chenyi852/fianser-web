@@ -1,0 +1,49 @@
+---
+const navItems = [
+  { label: '首页', href: '/' },
+  { label: '泳衣', href: '/collection/swimwear' },
+  { label: '手串', href: '/collection/bracelet' },
+  { label: '沉香', href: '/collection/agarwood' },
+  { label: '品牌', href: '/about' },
+  { label: '联系', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-brand-bg/95 backdrop-blur-sm border-b border-brand-border">
+  <nav class="container-custom py-4 flex items-center justify-between">
+    <a href="/" class="font-serif-cn text-xl font-medium text-brand-text hover:text-brand-accent transition-colors">
+      fianser
+    </a>
+    
+    <ul class="hidden md:flex items-center gap-8">
+      {navItems.map((item) => (
+        <li>
+          <a 
+            href={item.href}
+            class:list={[
+              'text-sm transition-colors',
+              currentPath === item.href 
+                ? 'text-brand-accent font-medium' 
+                : 'text-brand-text-secondary hover:text-brand-text'
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <button 
+      class="md:hidden p-2 text-brand-text"
+      aria-label="打开菜单"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+</header>

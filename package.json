@@ -1,0 +1,31 @@
+{
+  "name": "fianser-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenyi852/fianser-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chenyi852/fianser-web/issues"
+  },
+  "homepage": "https://github.com/chenyi852/fianser-web#readme",
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@types/node": "^25.9.1",
+    "astro": "^5.18.1",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
+  }
+}

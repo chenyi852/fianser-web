@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Container from '../../components/layout/Container.astro';
+import ProductCard from '../../components/product/ProductCard.astro';
+import { getProductsByCategory, getCategoryLabel } from '../../utils/products';
+
+export async function getStaticPaths() {
+  return [
+    { params: { category: 'swimwear' } },
+    { params: { category: 'bracelet' } },
+    { params: { category: 'agarwood' } },
+  ];
+}
+
+const { category } = Astro.params;
+const products = await getProductsByCategory(category || '');
+const categoryLabel = getCategoryLabel(category || '');
+
+const categoryInfo: Record<string, { title: string; description: string; image: string }> = {
+  swimwear: {
+    title: '泳衣',
+    description: '轻盈速干，自由舒展。采用高弹面料，贴合身形不紧绷，让您在水中自由畅游。',
+    image: 'https://cdn.fianser.com/category-swimwear.jpg',
+  },
+  bracelet: {
+    title: '手串',
+    description: '匠心打磨，温润如玉。精选天然材质，每一颗珠子都经过精心打磨，佩戴盘玩皆宜。',
+    image: 'https://cdn.fianser.com/category-bracelet.jpg',
+  },
+  agarwood: {
+    title: '沉香',
+    description: '天然醇厚，安神养心。来自越南芽庄、中国海南等优质产区，油脂饱满，香气持久。',
+    image: 'https://cdn.fianser.com/category-agarwood.jpg',
+  },
+};
+
+const info = categoryInfo[category || 'swimwear'];
+---
+
+<BaseLayout title={`${info.title} - fianser`} description={info.description}>
+  <Header slot="header" />
+  
+  <section class="relative py-16 md:py-24">
+    <div class="absolute inset-0 h-64 md:h-80">
+      <img 
+        src={info.image} 
+        alt={info.title}
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-bg/80 to-brand-bg"></div>
+    </div>
+    
+    <Container class="relative z-10 pt-32 md:pt-40">
+      <div class="text-center mb-12">
+        <h1 class="font-serif-cn text-4xl md:text-5xl font-medium text-brand-text mb-4">
+          {info.title}
+        </h1>
+        <p class="text-brand-text-secondary max-w-2xl mx-auto">
+          {info.description}
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="pb-24 md:pb-32">
+    <Container>
+      {products.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <ProductCard
+              title={product.data.title}
+              slug={product.data.slug}
+              category={product.data.category}
+              image={product.data.images[0]}
+              price={product.data.price}
+              tags={product.data.tags}
+              featured={product.data.featured}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-brand-text-secondary">
+            该品类暂无产品
+          </p>
+        </div>
+      )}
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

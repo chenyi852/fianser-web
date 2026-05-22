@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/layout/Container.astro';
+---
+
+<BaseLayout title="品牌故事 - fianser">
+  <Header slot="header" />
+  
+  <section class="py-16 md:py-24">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <h1 class="font-serif-cn text-4xl md:text-5xl font-medium text-brand-text mb-8 text-center">
+          品牌故事
+        </h1>
+        
+        <div class="aspect-video rounded-sm overflow-hidden mb-12 bg-brand-border">
+          <img 
+            src="https://cdn.fianser.com/about-hero.jpg" 
+            alt="fianser 品牌故事"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        
+        <div class="prose prose-lg max-w-none">
+          <div class="text-brand-text-secondary leading-relaxed space-y-6">
+            <p class="text-xl">
+              fianser，源于对品质生活的执着追求。
+            </p>
+            
+            <p>
+              在这个快节奏的时代，我们相信生活中真正的奢侈，
+              不是昂贵的价格标签，而是那些能够触动心灵、陪伴时光的物件。
+              一件合身的泳衣，让夏日的海滩成为自由的舞台；
+              一串温润的手串，在指尖流转间沉淀岁月；
+              一缕沉香的气息，让忙碌的生活找到片刻宁静。
+            </p>
+            
+            <h2 class="font-serif-cn text-2xl font-medium text-brand-text mt-12 mb-6">
+              品质承诺
+            </h2>
+            
+            <p>
+              我们从全球甄选优质原料，与经验丰富的匠人合作，
+              对每一件产品的材质、工艺、细节都严格把控。
+              从天然沉香的产地溯源，到泳衣面料的速干性能测试，
+              我们追求的不仅是"合格"，而是"出色"。
+            </p>
+            
+            <h2 class="font-serif-cn text-2xl font-medium text-brand-text mt-12 mb-6">
+              设计理念
+            </h2>
+            
+            <p>
+              简约而不简单，克制而有温度。我们的设计摒弃多余的装饰，
+              以纯粹的形式呈现材质本身的美感。
+              大量留白、柔和色调、精致细节——这是 fianser 的美学语言。
+            </p>
+            
+            <h2 class="font-serif-cn text-2xl font-medium text-brand-text mt-12 mb-6">
+              品牌愿景
+            </h2>
+            
+            <p>
+              我们希望 fianser 能成为您品质生活的伙伴。
+              不是追逐潮流的快消品，而是能够长久陪伴、承载记忆的存在。
+              当您穿上一件泳衣，盘玩一串手串，品闻一缕沉香，
+              希望能感受到我们对品质的坚持，对生活的热爱。
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
