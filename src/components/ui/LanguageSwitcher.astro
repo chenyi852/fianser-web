@@ -1,0 +1,53 @@
+---
+import { languages, type Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const otherLang = lang === 'en' ? 'ar' : 'en';
+---
+
+<div class="flex items-center gap-2">
+  <button 
+    class="text-sm transition-colors"
+    data-lang-switcher
+    data-current-lang={lang}
+    data-other-lang={otherLang}
+  >
+    <span class:list={[lang === 'en' ? 'text-brand-accent font-medium' : 'text-brand-text-secondary hover:text-brand-text']}>
+      EN
+    </span>
+  </button>
+  <span class="text-brand-text-weak">/</span>
+  <button 
+    class="text-sm transition-colors"
+    data-lang-switcher
+    data-current-lang={lang}
+    data-other-lang={otherLang}
+  >
+    <span class:list={[lang === 'ar' ? 'text-brand-accent font-medium' : 'text-brand-text-secondary hover:text-brand-text']}>
+      AR
+    </span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll('[data-lang-switcher]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const otherLang = (btn as HTMLElement).dataset.otherLang;
+      const currentPath = window.location.pathname;
+      
+      let newPath: string;
+      if (currentPath.startsWith('/ar')) {
+        newPath = currentPath.replace(/^\/ar/, '') || '/';
+      } else {
+        newPath = `/ar${currentPath}`;
+      }
+      
+      window.location.href = newPath;
+    });
+  });
+</script>

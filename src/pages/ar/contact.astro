@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/layout/Header.astro';
-import Footer from '../components/layout/Footer.astro';
-import Container from '../components/layout/Container.astro';
-import Button from '../components/ui/Button.astro';
-import { useTranslations, type Lang } from '../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Container from '../../components/layout/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import { useTranslations, type Lang } from '../../i18n/utils';
 
-const lang: Lang = 'en';
+const lang: Lang = 'ar';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title="Contact Us - fianser" lang={lang}>
+<BaseLayout title={`اتصل بنا - fianser`} lang={lang}>
   <Header slot="header" lang={lang} />
   
   <section class="py-16 md:py-24">
@@ -20,7 +20,7 @@ const t = useTranslations(lang);
           {t('contact.title')}
         </h1>
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12" dir="rtl">
           <div>
             <h2 class="font-serif-cn text-2xl font-medium text-brand-text mb-6">
               {t('contact.form')}

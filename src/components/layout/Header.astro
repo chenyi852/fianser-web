@@ -1,11 +1,21 @@
 ---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
 const navItems = [
-  { label: '首页', href: '/' },
-  { label: '泳衣', href: '/collection/swimwear' },
-  { label: '手串', href: '/collection/bracelet' },
-  { label: '沉香', href: '/collection/agarwood' },
-  { label: '品牌', href: '/about' },
-  { label: '联系', href: '/contact' },
+  { label: t('nav.home'), href: lang === 'en' ? '/' : '/ar' },
+  { label: t('nav.swimwear'), href: lang === 'en' ? '/collection/swimwear' : '/ar/collection/swimwear' },
+  { label: t('nav.bracelet'), href: lang === 'en' ? '/collection/bracelet' : '/ar/collection/bracelet' },
+  { label: t('nav.agarwood'), href: lang === 'en' ? '/collection/agarwood' : '/ar/collection/agarwood' },
+  { label: t('nav.about'), href: lang === 'en' ? '/about' : '/ar/about' },
+  { label: t('nav.contact'), href: lang === 'en' ? '/contact' : '/ar/contact' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -13,11 +23,11 @@ const currentPath = Astro.url.pathname;
 
 <header class="sticky top-0 z-50 bg-brand-bg/95 backdrop-blur-sm border-b border-brand-border">
   <nav class="container-custom py-4 flex items-center justify-between">
-    <a href="/" class="font-serif-cn text-xl font-medium text-brand-text hover:text-brand-accent transition-colors">
+    <a href={lang === 'en' ? '/' : '/ar'} class="font-serif-cn text-xl font-medium text-brand-text hover:text-brand-accent transition-colors">
       fianser
     </a>
     
-    <ul class="hidden md:flex items-center gap-8">
+    <ul class:list={['hidden md:flex items-center gap-8', lang === 'ar' && 'flex-row-reverse']}>
       {navItems.map((item) => (
         <li>
           <a 
@@ -28,6 +38,7 @@ const currentPath = Astro.url.pathname;
                 ? 'text-brand-accent font-medium' 
                 : 'text-brand-text-secondary hover:text-brand-text'
             ]}
+            dir={lang === 'ar' ? 'rtl' : 'ltr'}
           >
             {item.label}
           </a>
@@ -35,15 +46,19 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
 
-    <button 
-      class="md:hidden p-2 text-brand-text"
-      aria-label="打开菜单"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </button>
+    <div class="flex items-center gap-4">
+      <LanguageSwitcher lang={lang} />
+      
+      <button 
+        class="md:hidden p-2 text-brand-text"
+        aria-label="Menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   </nav>
 </header>

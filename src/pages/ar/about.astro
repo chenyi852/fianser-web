@@ -1,15 +1,15 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/layout/Header.astro';
-import Footer from '../components/layout/Footer.astro';
-import Container from '../components/layout/Container.astro';
-import { useTranslations, type Lang } from '../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Container from '../../components/layout/Container.astro';
+import { useTranslations, type Lang } from '../../i18n/utils';
 
-const lang: Lang = 'en';
+const lang: Lang = 'ar';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title="Brand Story - fianser" lang={lang}>
+<BaseLayout title={`قصة العلامة - fianser`} lang={lang}>
   <Header slot="header" lang={lang} />
   
   <section class="py-16 md:py-24">
@@ -27,7 +27,7 @@ const t = useTranslations(lang);
           />
         </div>
         
-        <div class="prose prose-lg max-w-none">
+        <div class="prose prose-lg max-w-none" dir="rtl">
           <div class="text-brand-text-secondary leading-relaxed space-y-6">
             <p class="text-xl">
               {t('about.description')}
@@ -38,8 +38,7 @@ const t = useTranslations(lang);
             </h2>
             
             <p>
-              We source premium materials globally, partnering with experienced artisans. 
-              Every product undergoes rigorous quality control for materials, craftsmanship, and details.
+              We source premium materials globally, partnering with experienced artisans. Every product undergoes rigorous quality control for materials, craftsmanship, and details.
             </p>
             
             <h2 class="font-serif-cn text-2xl font-medium text-brand-text mt-12 mb-6">
@@ -47,8 +46,7 @@ const t = useTranslations(lang);
             </h2>
             
             <p>
-              Simple yet sophisticated, restrained yet warm. Our design philosophy removes excess decoration, 
-              presenting the inherent beauty of materials. Generous white space, soft tones, refined details—this is fianser's aesthetic language.
+              Simple yet sophisticated, restrained yet warm. Our design philosophy removes excess decoration, presenting the inherent beauty of materials.
             </p>
             
             <h2 class="font-serif-cn text-2xl font-medium text-brand-text mt-12 mb-6">
@@ -56,8 +54,7 @@ const t = useTranslations(lang);
             </h2>
             
             <p>
-              We hope fianser becomes your partner in quality living. Not a fast-moving trend chaser, 
-              but a lasting companion that carries memories.
+              We hope fianser becomes your partner in quality living. Not a fast-moving trend chaser, but a lasting companion that carries memories.
             </p>
           </div>
         </div>

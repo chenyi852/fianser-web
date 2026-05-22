@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/layout/Header.astro';
-import Footer from '../../components/layout/Footer.astro';
-import Container from '../../components/layout/Container.astro';
-import ProductCard from '../../components/product/ProductCard.astro';
-import { getProductsByCategory, getCategoryLabel } from '../../utils/products';
-import { useTranslations, type Lang } from '../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import Container from '../../../components/layout/Container.astro';
+import ProductCard from '../../../components/product/ProductCard.astro';
+import { getProductsByCategory, getCategoryLabel } from '../../../utils/products';
+import { useTranslations, type Lang } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   return [
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-const lang: Lang = 'en';
+const lang: Lang = 'ar';
 const t = useTranslations(lang);
 
 const products = await getProductsByCategory(category || '');
@@ -25,17 +25,17 @@ const categoryLabel = getCategoryLabel(category || '');
 const categoryInfo: Record<string, { title: string; description: string; image: string }> = {
   swimwear: {
     title: t('categories.swimwear.title'),
-    description: 'Lightweight & quick-dry fabric for freedom of movement in water.',
+    description: t('categories.swimwear.description'),
     image: 'https://cdn.fianser.com/category-swimwear.jpg',
   },
   bracelet: {
     title: t('categories.bracelet.title'),
-    description: 'Crafted with care from natural materials, each bead meticulously polished.',
+    description: t('categories.bracelet.description'),
     image: 'https://cdn.fianser.com/category-bracelet.jpg',
   },
   agarwood: {
     title: t('categories.agarwood.title'),
-    description: 'From premium regions like Vietnam and Hainan, rich in oil and lasting fragrance.',
+    description: t('categories.agarwood.description'),
     image: 'https://cdn.fianser.com/category-agarwood.jpg',
   },
 };

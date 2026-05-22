@@ -1,19 +1,24 @@
 ---
 import '../assets/styles/global.css';
+import { type Lang } from '../i18n/utils';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
 const { 
   title = 'fianser', 
-  description = '高端生活方式品牌 - 泳衣、手串、沉香' 
+  description = 'Premium lifestyle brand - Swimwear, Bracelet, Agarwood',
+  lang = 'en'
 } = Astro.props;
+
+const isRTL = lang === 'ar';
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,10 +26,10 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col" dir={isRTL ? 'rtl' : 'ltr'}>
     <slot name="header" />
     <main class="flex-1">
       <slot />
