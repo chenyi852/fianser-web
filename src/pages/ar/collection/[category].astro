@@ -10,8 +10,8 @@ import { useTranslations, type Lang } from '../../../i18n/utils';
 export async function getStaticPaths() {
   return [
     { params: { category: 'swimwear' } },
-    { params: { category: 'bracelet' } },
     { params: { category: 'agarwood' } },
+    { params: { category: 'candle' } },
   ];
 }
 
@@ -28,15 +28,15 @@ const categoryInfo: Record<string, { title: string; description: string; image: 
     description: t('categories.swimwear.description'),
     image: '/images/brand/category-swimwear.webp',
   },
-  bracelet: {
-    title: t('categories.bracelet.title'),
-    description: t('categories.bracelet.description'),
-    image: '/images/brand/category-bracelet.webp',
-  },
   agarwood: {
     title: t('categories.agarwood.title'),
     description: t('categories.agarwood.description'),
     image: '/images/brand/category-agarwood.webp',
+  },
+  candle: {
+    title: t('categories.candle.title'),
+    description: t('categories.candle.description'),
+    image: '/images/brand/category-candle.webp',
   },
 };
 

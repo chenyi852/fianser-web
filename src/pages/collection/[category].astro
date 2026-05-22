@@ -10,8 +10,8 @@ import { useTranslations, type Lang } from '../../i18n/utils';
 export async function getStaticPaths() {
   return [
     { params: { category: 'swimwear' } },
-    { params: { category: 'bracelet' } },
     { params: { category: 'agarwood' } },
+    { params: { category: 'candle' } },
   ];
 }
 
@@ -25,18 +25,18 @@ const categoryLabel = getCategoryLabel(category || '');
 const categoryInfo: Record<string, { title: string; description: string; image: string }> = {
   swimwear: {
     title: t('categories.swimwear.title'),
-    description: 'Lightweight & quick-dry fabric for freedom of movement in water.',
+    description: 'Full coverage, sun protection, modest style for the modern woman.',
     image: '/images/brand/category-swimwear.webp',
-  },
-  bracelet: {
-    title: t('categories.bracelet.title'),
-    description: 'Crafted with care from natural materials, each bead meticulously polished.',
-    image: '/images/brand/category-bracelet.webp',
   },
   agarwood: {
     title: t('categories.agarwood.title'),
-    description: 'From premium regions like Vietnam and Hainan, rich in oil and lasting fragrance.',
+    description: 'Natural agarwood incense for aromatherapy, meditation, and home fragrance.',
     image: '/images/brand/category-agarwood.webp',
+  },
+  candle: {
+    title: t('categories.candle.title'),
+    description: 'Handmade scented candles for relaxation, aromatherapy, and home decoration.',
+    image: '/images/brand/category-candle.webp',
   },
 };
 
